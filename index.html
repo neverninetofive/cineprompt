@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Room Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  </head>
+  <body>
+    <h1>Room Generator</h1>
+    
+     <style>
+  #freezeRNGCheckbox {
+    display: inline-block;
+    margin-left: 30px;
+  }
+</style>
+    <style>
+  #generateRoomBtn {
+    display: inline-block;
+    margin-left: 40px;
+    padding: 15px; /* set the width to your desired value */
+  }
+</style>
+    
+        <style>
+  #resetDropdownsBtn {
+    display: inline-block;
+    margin-left: 60px;
+    padding: 15px; /* set the width to your desired value */
+  }
+</style>
+    
+   
+ <br>
+    </style>
+    <style>
+  #copyToClipboardBtn {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 15px; /* set the width to your desired value */
+  }
+</style>
+  
+
+    <div>
+      <textarea id="roomOutputTextarea" rows="10" cols="50"></textarea><br>
+      <button id="generateRoomBtn">Generate Room</button><button id="copyToClipboardBtn">Copy to Clipboard</button> <button id="resetDropdownsBtn">Reset App</button>
+    </div><br>
+   <label><input type="checkbox" id="freezeRNGCheckbox">Freeze Random Generation (if you get a prompt you like and want to change values)</label>
+  
+    <br><br><br>
+  
+    <label id="prev1">Primary Attributes Preview</label><br>
+            <textarea id="label_name" rows="2" cols="90"></textarea>
+  <br> <br>
+    
+    <style>
+  #roomTypeCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+  
+   <style>
+  #roomType {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+       #roomLoc {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+       #roomSize {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+       #roomMaterial {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+       #roomStyle {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+       #roomColorMaterial {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+       #furnitureColor {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+         #furnitureMaterial {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+         #furnitureStyle {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+         #camDistance {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+              #lightingType {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+              #aspectRatio {
+    display: inline-block;
+    padding: 7px;
+  }
+     
+              #qualityS {
+    display: inline-block;
+    padding: 7px;
+  }
+</style>
+  
+<label for="roomType">Select a Room Type:</label>
+<select id="roomType">
+
+<option value="random">Random</option>
+<option value="custom">Custom</option>
+<option value="living room">Living Room</option>
+<option value="kitchen">Kitchen</option>
+<option value="dining room">Dining Room</option>
+<option value="master bedroom">Master Bedroom</option>
+<option value="master bathroom">Master Bathroom</option>
+<option value="bedroom">Bedroom</option>
+<option value="bathroom">Bathroom</option>
+<option value="home office">Home Office</option>
+<option value="guest room">Guest Room</option>
+<option value="guest suite">Guest Suite</option>
+<option value="home spa">Home Spa</option>
+<option value="Powder Room">Powder Room</option>
+<option value="lanai">Lanai</option>
+<option value="backporch">Back Porch</option>
+<option value="garage">Garage</option>
+<option value="front porch">Front Porch</option>
+<option value="front of the house">Front of the House</option>
+<option value="back of the house">Back of the House</option>
+<option value="indoor pool">Indoor Pool</option>
+<option value="outdoor pool screened lanai">Outdoor Pool Screened Lanai</option>
+<option value="outdoor pool area">Outdoor Pool Area</option>
+<option value="laundry room">Laundry Room</option>
+<option value="walk-in closet">Walk-in Closet</option>
+<option value="attic">Attic</option>
+<option value="basement">Basement</option>
+<option value="game room">Game Room</option>
+<option value="home theater">Home Theater</option>
+<option value="library">Library</option>
+<option value="music room">Music Room</option>
+<option value="playroom">Playroom</option>
+<option value="sunroom">Sunroom</option>
+<option value="workshop">Workshop</option>
+<option value="pool room">Pool Room</option>
+<option value="loft">Loft</option>
+<option value="saferoom">Safe Room</option>
+<option value="home gym">Home Gym</option>
+<option value="art studio">Art Studio</option>
+<option value="meditation room">Meditation Room</option>
+<option value="bar room">Bar Room</option>
+<option value="study room">Study Room</option>
+<option value="mudroom">Mudroom</option>
+<option value="pantry">Pantry</option>
+</select>  
+<div id="roomTypeCustomDiv" style="display:none;">
+  <label for="roomTypeCustom">Custom room type:</label>
+  <input type="text" id="roomTypeCustomText">
+</div><br><br>
+    
+
+    
+    
+    <style>
+  #roomLocCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="roomLoc">Select a Room Location:</label> 
+<select id="roomLoc"> 
+      <option value="random">Random</option>
+      <option value="custom">Custom</option>
+      <option value="Florida">Florida</option>
+      <option value="Miami">Miami</option>
+      <option value="New York City">New York City</option>
+      <option value="Los Angeles">Los Angeles</option>
+      <option value="San Francisco">San Francisco</option>
+      <option value="Hawaii">Hawaii</option>
+      <option value="Boulder CO">Boulder, CO</option>
+      <option value="the Grand Canyon">Grand Canyon</option>
+      <option value="Savannah">Savannah</option>
+      <option value="Arizona">Arizona</option>
+      <option value="Alaska">Alaska</option>
+      <option value="California">California</option>
+      <option value="Montana">Montana</option>
+      <option value="Ohio">Ohio</option>
+      <option value="Maine">Maine</option>
+      <option value="Paris France">Paris, France</option>
+<option value="Rome Italy">Rome, Italy</option>
+<option value="Barcelona Spain">Barcelona, Spain</option>
+<option value="Bali Indonesia">Bali, Indonesia</option>
+<option value="Phuket Thailand">Phuket, Thailand</option>
+<option value="Dubai UAE">Dubai, UAE</option>
+<option value="Sydney Australia">Sydney, Australia</option>
+<option value="London UK">London, UK</option>
+<option value="Tokyo Japan">Tokyo, Japan</option>
+<option value="Cancun Mexico">Cancun, Mexico</option>
+<option value="Machu Picchu Peru">Machu Picchu, Peru</option>
+<option value="Santorini Greece">Santorini, Greece</option>
+<option value="Maui Hawaii">Maui, Hawaii</option>
+<option value="Rio de Janeiro Brazil">Rio de Janeiro, Brazil</option>
+<option value="Amsterdam Netherlands">Amsterdam, Netherlands</option>
+<option value="Cape Town South Africa">Cape Town, South Africa</option>
+<option value="Hong Kong China">Hong Kong, China</option>
+<option value="Istanbul Turkey">Istanbul, Turkey</option>
+<option value="New Orleans Louisiana">New Orleans, Louisiana</option>
+<option value="Queenstown New Zealand">Queenstown, New Zealand</option>
+<option value="Sedona Arizona">Sedona, Arizona</option>
+<option value="Siem Reap Cambodia">Siem Reap, Cambodia</option>
+<option value="Vancouver Canada">Vancouver, Canada</option>
+<option value="Zurich Switzerland">Zurich, Switzerland</option>
+<option value="Athens Greece">Athens, Greece</option>
+<option value="Bangkok Thailand">Bangkok, Thailand</option>
+<option value="Berlin Germany">Berlin, Germany</option>
+<option value="Dublin Ireland">Dublin, Ireland</option>
+<option value="Fiji">Fiji</option>
+<option value="Havana Cuba">Havana, Cuba</option>
+<option value="Ibiza Spain">Ibiza, Spain</option>
+<option value="Krakow Poland">Krakow, Poland</option>
+<option value="Lisbon Portugal">Lisbon, Portugal</option>
+<option value="Marrakech Morocco">Marrakech, Morocco</option>
+<option value="Napa Valley California">Napa Valley, California</option>
+<option value="San Juan Puerto Rico">San Juan, Puerto Rico</option>
+<option value="Singapore">Singapore</option>
+<option value="Tahiti">Tahiti</option>
+<option value="Vienna Austria">Vienna, Austria</option>
+</select>  
+<div id="roomLocCustomDiv" style="display:none;">
+  <label for="roomLocCustom">Custom room location:</label>
+  <input type="text" id="roomLocCustomText">
+</div><br><br>
+    
+
+<style>
+  #roomSize {
+    width: 150px; /* set the width to your desired value */
+  }
+</style>
+
+ <style>
+  #roomSizeCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="roomSize">Select a Room Size:</label> 
+<select id="roomSize"> 
+  <option value="random">Random</option>
+  <option value="custom">Custom</option>
+<option value="cozy">Cozy</option>
+<option value="comfortable">Comfortable</option>
+<option value="modest">Modest</option>
+<option value="compact">Compact</option>
+<option value="spacious">Spacious</option>
+<option value="medium">Medium</option>
+<option value="average">Average</option>
+<option value="expansive">Expansive</option>
+<option value="grand">Grand</option>
+<option value="enormous">Enormous</option>
+<option value="massive">Massive</option>
+<option value="high-ceilinged">High-ceilinged</option>
+<option value="vaulted">Vaulted</option>
+<option value="cathedral">Cathedral</option>
+<option value="double-height">Double-height</option>
+<option value="circular">Circular</option>
+<option value="curved">Curved</option>
+<option value="energizing">Energizing</option>
+<option value="calming">Calming</option>
+<option value="inviting">Inviting</option>
+<option value="scenic">Scenic</option>
+<option value="urban">Urban</option>
+<option value="skyline">Skyline</option>
+<option value="sunny">Sunny</option>
+<option value="well lit">Well-lit</option>
+</select>  
+<div id="roomSizeCustomDiv" style="display:none;">
+  <label for="roomSizeCustom">Custom room size:</label>
+  <input type="text" id="roomSizeCustomText">
+</div>
+<br><br>
+
+<style>
+  #roomStyleCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+    <label for="roomStyle">Select a Room Style:</label> 
+    <select id="roomStyle"> 
+      <option value="random">Random</option>
+      <option value="custom">Custom</option>
+<option value="contemporary">Contemporary</option>
+<option value="modern">Modern</option>
+<option value="new construction unfinished home">New Construction</option>
+<option value="traditional">Traditional</option>
+<option value="Key West">Key West</option>
+<option value="skyscraper">Skyscraper</option>
+<option value="rustic">Rustic</option>
+<option value="farmhouse">Farmhouse</option>
+<option value="industrial">Industrial</option>
+<option value="mid-century modern">Mid-Century Modern</option>
+<option value="Scandinavian">Scandinavian</option>
+<option value="bohemian">Bohemian</option>
+<option value="coastal">Coastal</option>
+<option value="Art Deco">Art Deco</option>
+<option value="minimalist">Minimalist</option>
+<option value="eclectic">Eclectic</option>
+<option value="transitional">Transitional</option>
+<option value="Cabin">Cabin</option>
+<option value="French country">French Country</option>
+<option value="Victorian">Victorian</option>
+<option value="Neoclassical Architecture">Neoclassical Architecture</option>
+<option value="colonial">Colonial</option>
+<option value="craftsman">Craftsman</option>
+<option value="tropical">Tropical</option>
+<option value="Mediterranean">Mediterranean</option>
+<option value="Spanish">Spanish</option>
+<option value="Japanese">Japanese</option>
+<option value="Chinese">Chinese</option>
+<option value="Indian">Indian</option>
+<option value="Moroccan">Moroccan</option>
+<option value="African">African</option>
+<option value="Arabian">Arabian</option>
+<option value="Hollywood glamour">Hollywood Glamour</option>
+<option value="retro">Retro</option>
+<option value="vintage">Vintage</option>
+<option value="chateau">Chateau</option>
+<option value="palace">Palace</option>
+<option value="castle">Castle</option>
+<option value="cottage">Cottage</option>
+<option value="beach house">Beach House</option>
+    </select>  
+    <div id="roomStyleCustomDiv" style="display:none;">
+    <label for="roomStyleCustom">Custom room style:</label>
+    <input type="text" id="roomStyleCustomText">
+</div>
+    <br><br>
+
+
+<style>
+  #roomMaterial {
+    width: 150px; /* set the width to your desired value */
+  }
+</style>
+
+<style>
+  #roomMaterialCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="roomMaterial">Select a Room Material:</label>
+<select id="roomMaterial">>
+
+  <option value="random">Random</option>
+  <option value="custom">Custom</option>
+<option value="marble">Marble</option>
+<option value="brick">Brick</option>
+<option value="metal">Metal</option>
+  <option value="porcelain">Porcelain</option>
+<option value="terrazzo">Terrazzo</option>
+  <option value="brass">Brass</option>
+  <option value="Terracotta">Terracotta</option>
+  <option value="concrete">Concrete</option>
+<option value="granite">Granite</option>
+<option value="slate">Slate</option>
+<option value="stainless steel">Stainless Steel</option>
+<option value="sandstone">Sandstone</option>
+<option value="limestone">Limestone</option>
+<option value="zinc">Zinc</option>
+<option value="bamboo">Bamboo</option>
+<option value="wood">Wood</option>
+<option value="leather">Leather</option>
+<option value="fur">Fur</option>
+<option value="stone">Stone</option>
+<option value="tile">Tile</option>
+<option value="glass">Glass</option>
+<option value="mosaic">Mosaic</option>
+<option value="hardwood">Hardwood</option>
+</select>  
+<div id="roomMaterialCustomDiv" style="display:none;">
+  <label for="roomMaterialCustom">Custom room material:</label>
+  <input type="text" id="roomMaterialCustomText">
+</div>
+
+
+    
+    <br><br><br>
+    
+    <br><label><input type="checkbox" id="disableInputsCheckbox">Disable Secondary Room Attributes</label><br><br>
+    <label id="prev2">Secondary Attributes Preview</label><br>
+ <textarea id="label_name2" rows="2" cols="90"></textarea>
+  <br> <br>
+<style>
+  #roomColorMaterial {
+    width: 150px; /* set the width to your desired value */
+  }
+</style>
+
+    <style>
+  #roomColorMaterialCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="roomColorMaterial">Select a Room Color/Material:</label>
+<select id="roomColorMaterial">
+
+  <option value="random">Random</option>
+  <option value="custom">Custom</option>
+<option value="black">Black</option>
+<option value="white">White</option>
+<option value="gray">Gray</option>
+<option value="beige">Beige</option>
+<option value="blue">Blue</option>
+<option value="green">Green</option>
+<option value="red">Red</option>
+<option value="pink">Pink</option>
+<option value="orange">Orange</option>
+<option value="yellow">Yellow</option>
+<option value="purple">Purple</option>
+<option value="brown">Brown</option>
+<option value="tan">Tan</option>
+<option value="cream">Cream</option>
+<option value="navy">Navy</option>
+<option value="teal">Teal</option>
+<option value="olive">Olive</option>
+<option value="maroon">Maroon</option>
+<option value="magenta">Magenta</option>
+<option value="khaki">Khaki</option>
+<option value="charcoal">Charcoal</option>
+<option value="coral">Coral</option>
+<option value="gold">Gold</option>
+<option value="silver">Silver</option>
+<option value="bronze">Bronze</option>
+<option value="copper">Copper</option>
+<option value="rust">Rust</option>
+<option value="rose">Rose</option>
+<option value="peach">Peach</option>
+<option value="mint">Mint</option>
+<option value="lavender">Lavender</option>
+<option value="mustard">Mustard</option>
+<option value="taupe">Taupe</option>
+<option value="chocolate">Chocolate</option>
+<option value="ivory">Ivory</option>
+<option value="fuchsia">Fuchsia</option>
+<option value="indigo">Indigo</option>
+<option value="ruby">Ruby</option>
+<option value="emerald">Emerald</option>
+<option value="sapphire">Sapphire</option>
+<option value="topaz">Topaz</option>
+<option value="opal">Opal</option>
+<option value="quartz">Quartz</option>
+<option value="granite">Granite</option>
+<option value="marble">Marble</option>
+<option value="slate">Slate</option>
+<option value="sandstone">Sandstone</option>
+<option value="limestone">Limestone</option>
+<option value="stainless steel">Stainless Steel</option>
+<option value="bamboo">Bamboo</option>
+<option value="wood">Wood</option>
+<option value="zinc">Zinc</option>
+<option value="fur">Fur</option>
+<option value="leather">Leather</option>
+<option value="stone">Stone</option>
+<option value="tile">Tile</option>
+<option value="glass">Glass</option>
+<option value="mosaic">Mosaic</option>
+<option value="hardwood">Hardwood</option>
+
+</select>  
+<div id="roomColorMaterialCustomDiv" style="display:none;">
+  <label for="roomColorMaterialCustom">Custom room color/material:</label>
+  <input type="text" id="roomColorMaterialCustomText">
+</div>
+    
+    
+    <br><br>
+<style>
+  #furnitureColor {
+    width: 150px; /* set the width to your desired value */
+  }
+</style>
+
+    <style>
+  #furnitureColorCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="furnitureColor">Select a Furniture Color:</label>
+<select id="furnitureColor">
+
+  <option value="random">Random</option>
+  <option value="custom">Custom</option>
+<option value="black">Black</option>
+<option value="white">White</option>
+<option value="gray">Gray</option>
+<option value="beige">Beige</option>
+<option value="blue">Blue</option>
+<option value="green">Green</option>
+<option value="red">Red</option>
+<option value="pink">Pink</option>
+<option value="orange">Orange</option>
+<option value="yellow">Yellow</option>
+<option value="purple">Purple</option>
+<option value="brown">Brown</option>
+<option value="tan">Tan</option>
+<option value="cream">Cream</option>
+<option value="navy">Navy</option>
+<option value="teal">Teal</option>
+<option value="olive">Olive</option>
+<option value="maroon">Maroon</option>
+<option value="magenta">Magenta</option>
+<option value="khaki">Khaki</option>
+<option value="charcoal">Charcoal</option>
+<option value="coral">Coral</option>
+<option value="gold">Gold</option>
+<option value="silver">Silver</option>
+<option value="bronze">Bronze</option>
+<option value="copper">Copper</option>
+<option value="rust">Rust</option>
+<option value="rose">Rose</option>
+<option value="peach">Peach</option>
+<option value="mint">Mint</option>
+<option value="lavender">Lavender</option>
+<option value="mustard">Mustard</option>
+<option value="taupe">Taupe</option>
+<option value="chocolate">Chocolate</option>
+<option value="ivory">Ivory</option>
+<option value="fuchsia">Fuchsia</option>
+<option value="indigo">Indigo</option>
+</select>  
+<div id="furnitureColorCustomDiv" style="display:none;">
+  <label for="furnitureColorCustom">Custom furniture color:</label>
+  <input type="text" id="furnitureColorCustomText">
+</div>
+ 
+    <br><br>
+
+
+
+
+<style>
+  #furnitureMaterialCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="furnitureMaterial">Select a Furniture Material:</label>
+<select id="furnitureMaterial">
+
+  <option value="random">Random</option>
+  <option value="custom">Custom</option>
+<option value="leather">Leather</option>
+<option value="fabric">Fabric</option>
+<option value="vinyl">Vinyl</option>
+<option value="glass">Glass</option>
+<option value="wood">Wood</option>
+<option value="metal">Metal</option>
+<option value="granite">Granite</option>
+<option value="marble">Marble</option>
+<option value="slate">Slate</option>
+<option value="limestone">Limestone</option>
+<option value="cork">Cork</option>
+<option value="resin">Resin</option>
+<option value="concrete">Concrete</option>
+<option value="fur">Fur</option>
+<option value="stainless steel">Stainless Steel</option>
+<option value="zinc">Zinc</option>
+<option value="bamboo">Bamboo</option>
+<option value="stone">Stone</option>
+</select>  
+<div id="furnitureMaterialCustomDiv" style="display:none;">
+  <label for="furnitureMaterialCustom">Custom furniture material:</label>
+  <input type="text" id="furnitureMaterialCustomText">
+</div>
+    
+    <br><br>
+    
+   <style>
+  #furnitureStyleCustomDiv {
+    display: inline-block;
+    margin-left: 20px;
+  }
+</style>
+<label for="furnitureStyle">Select a Furniture Style:</label>
+<select id="furnitureStyle">
+
+  <option value="random">Random</option>
+  <option value="custom">Custom</option>
+<option value="Art Deco">Art Deco</option>
+<option value="Mid-Century Modern">Mid-Century Modern</option>
+<option value="Industrial">Industrial</option>
+<option value="Scandinavian">Scandinavian</option>
+<option value="Bohemian">Bohemian</option>
+<option value="Minimalist">Minimalist</option>
+<option value="Contemporary">Contemporary</option>
+<option value="Traditional">Traditional</option>
+<option value="Rustic">Rustic</option>
+<option value="Vintage">Vintage</option>
+<option value="Colonial">Colonial</option>
+<option value="Coastal">Coastal</option>
+<option value="French Country">French Country</option>
+<option value="Transitional">Transitional</option>
+<option value="Key West">Key West</option>
+<option value="Tropical">Tropical</option>
+<option value="Mediterranean">Mediterranean</option>
+<option value="Asian">Asian</option>
+<option value="Victorian">Victorian</option>
+<option value="Mission">Mission</option>
+<option value="Gothic">Gothic</option>
+<option value="Rococo">Rococo</option>
+<option value="Baroque">Baroque</option>
+<option value="Neo-Classical">Neo-Classical</option>
+<option value="Regency">Regency</option>
+<option value="Edwardian">Edwardian</option>
+<option value="Art Nouveau">Art Nouveau</option>
+<option value="Arts and Crafts">Arts and Crafts</option>
+<option value="Chippendale">Chippendale</option>
+<option value="Sheraton">Sheraton</option>
+<option value="Hepplewhite">Hepplewhite</option>
+<option value="Queen Anne">Queen Anne</option>
+<option value="Renaissance">Renaissance</option>
+<option value="Gothic Revival">Gothic Revival</option>
+<option value="Greek Revival">Greek Revival</option>
+<option value="Italianate">Italianate</option>
+<option value="Empire">Empire</option>
+<option value="Biedermeier">Biedermeier</option>
+<option value="Louis XIV">Louis XIV</option>
+<option value="Louis XV">Louis XV</option>
+<option value="Louis XVI">Louis XVI</option>
+<option value="Federation">Federation</option>
+<option value="Arts and Crafts Movement">Arts and Crafts Movement</option>
+<option value="Streamline Moderne">Streamline Moderne</option>
+<option value="Organic Modernism">Organic Modernism</option>
+<option value="International Style">International Style</option>
+<option value="Bauhaus">Bauhaus</option>
+<option value="Brutalism">Brutalism</option>
+<option value="Postmodernism">Postmodernism</option>
+</select>  
+<div id="furnitureStyleCustomDiv" style="display:none;">
+  <label for="furnitureStyleCustom">Custom furniture style:</label>
+  <input type="text" id="furnitureStyleCustomText">
+</div>
+    
+
+    
+    <br><br><br><br><br>
+    
+    <label for="camDistance">Select a Camera Distance:</label>
+<select id="camDistance">
+
+  <option value="32mm lens">32mm lens</option>
+   <option value="24mm lens">24mm lens</option>
+  <option value="10mm lens">10mm lens</option>
+  <option value="50mm lens">50mm lens</option>
+      <option value="80mm lens">80mm lens</option>
+      <option value="100mm lens">100mm lens</option>
+      <option value="200mm lens">200mm lens</option>
+</select>  
+
+<br><br>
+
+    <label for="lightingType">Select a Lighting Type:</label>
+<select id="lightingType">
+
+  <option value="accent lighting">Accent Lighting</option>
+  <option value="ambient lighting">Ambient Lighting</option>
+      <option value="fully lit">Fully Lit</option>
+      <option value="None">None</option>
+</select>  
+
+<br><br>
+
+    <label for="aspectRatio">Select a Aspect Ratio:</label>
+<select id="aspectRatio">
+
+  <option value="1:1">1:1</option>
+  <option value="16:9">16:9</option>
+      <option value="4:3">4:3</option>
+      <option value="None">None</option>
+</select>  
+
+<br><br>
+
+    <label for="qualityS">Select a Quality:</label>
+<select id="qualityS">
+
+  <option value="2">2</option>
+  <option value="1">1</option>
+
+</select>  
+
+<br><br>
+    
+ <style>
+  #userInputCustomText {
+    width: 1000px; /* set the width to your desired value */
+  }
+</style>
+
+<div id="userInputCustomDiv" style="display:;">
+  <label for="userInputCustom">Custom additional input:</label>
+  <input type="text" id="userInputCustomText">
+</div>
+<label for="userInputCustom2">Ex) girl looking at snow out the window::3, Canon EOS-1D X Mark III, Canon EF 100mm f/2.8L III USM</label>
+   
+<br><br><br><br><br><br>
+    <script>
+      $(function() {
+     let frozenRoomType = null;
+     let frozenRoomLoc = null;
+     let frozenRoomSize = null;
+     let frozenRoomStyle = null;
+     let frozenRoomMaterial = null;
+     let frozenRoomColorMaterial = null;
+     let frozenFurnitureStyle = null;
+     let frozenFurnitureColor = null;
+     let frozenFurnitureMaterial = null;
+     
+     
+  $('#disableInputsCheckbox').change(function() {
+      if ($(this).is(':checked')) {
+        $('#roomColorMaterial').prop('disabled', true);
+        $('#furnitureStyle').prop('disabled', true);
+        $('#furnitureMaterial').prop('disabled', true);
+        $('#furnitureColor').prop('disabled', true);
+         $('#label_name2').val("");
+        
+    roomColorMaterial = null;
+    furnitureStyle = null;
+    furnitureColor = null;
+    furnitureMaterial = null;
+      } else {
+        $('#roomColorMaterial').prop('disabled', false);
+        $('#furnitureStyle').prop('disabled', false);
+        $('#furnitureMaterial').prop('disabled', false);
+        $('#furnitureColor').prop('disabled', false);
+        
+      }
+    });     
+    
+    
+           $('#roomType').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#roomTypeCustomDiv').show();
+  } else {
+    $('#roomTypeCustomDiv').hide();
+  }
+});
+    
+        $('#roomLoc').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#roomLocCustomDiv').show();
+  } else {
+    $('#roomLocCustomDiv').hide();
+  }
+});
+    
+    $('#roomSize').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#roomSizeCustomDiv').show();
+  } else {
+    $('#roomSizeCustomDiv').hide();
+  }
+});
+
+    
+    
+    
+    $('#roomStyle').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#roomStyleCustomDiv').show();
+  } else {
+    $('#roomStyleCustomDiv').hide();
+  }
+});
+
+    $('#roomMaterial').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#roomMaterialCustomDiv').show();
+  } else {
+    $('#roomMaterialCustomDiv').hide();
+  }
+});
+
+    $('#roomColorMaterial').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#roomColorMaterialCustomDiv').show();
+  } else {
+    $('#roomColorMaterialCustomDiv').hide();
+  }
+});
+
+    $('#furnitureStyle').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#furnitureStyleCustomDiv').show();
+  } else {
+    $('#furnitureStyleCustomDiv').hide();
+  }
+});
+
+  $('#furnitureColor').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#furnitureColorCustomDiv').show();
+  } else {
+    $('#furnitureColorCustomDiv').hide();
+  }
+});
+
+  $('#furnitureMaterial').change(function() {
+  let selectedOption = $(this).children("option:selected").val();
+  if (selectedOption === "custom") {
+    $('#furnitureMaterialCustomDiv').show();
+  } else {
+    $('#furnitureMaterialCustomDiv').hide();
+  }
+});
+    
+  $('#generateRoomBtn').click(function() {
+  
+    let roomType;
+    let checkRoomType = $('#roomType').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenRoomType !== null) && (checkRoomType === "random") && !(checkRoomType === "custom")) {
+      roomType = frozenRoomType;
+    } else if (!(checkRoomType === "random") && !(checkRoomType === "custom")) {
+        roomType = $('#roomType').val();
+        frozenRoomType = roomType;
+    } else if (!(checkRoomType === "custom")) {
+      const otherChoices = ["living room", "kitchen", "dining room", "master bedroom", "master bathroom", "bedroom", "bathroom", "home office", "guest room", "guest suite", "home spa", "Powder Room", "lanai", "back porch", "garage", "front porch", "front of the house", "back of the house", "indoor pool", "outdoor pool screened lanai", "outdoor pool area", "laundry room", "walk-in closet", "attic", "basement", "game room", "home theater", "library", "music room", "playroom", "sunroom", "workshop", "pool room", "loft", "safe room", "home gym", "art studio", "meditation room", "bar room", "study room", "mudroom", "pantry"];
+      roomType = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenRoomType = roomType;
+    }
+    
+    if (checkRoomType === "custom") {
+    roomType = $('#roomTypeCustomText').val();
+}
+    
+    
+    let roomLoc;
+    let checkRoomLoc = $('#roomLoc').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenRoomLoc !== null) && (checkRoomLoc === "random") && !(checkRoomLoc === "custom")) {
+      roomLoc = frozenRoomLoc;
+    } else if (!(checkRoomLoc === "random") && !(checkRoomLoc === "custom")) {
+        roomLoc = $('#roomLoc').val();
+        frozenRoomLoc = roomLoc;
+    } else if (!(checkRoomLoc === "custom")) {
+      const otherChoices = ["Florida", "Miami", "New York City", "Los Angeles", "San Francisco", "Hawaii", "Boulder CO", "Grand Canyon", "Savannah", "Arizona", "Alaska", "California", "Montana", "Ohio", "Maine", "Paris France", "Rome Italy", "Barcelona Spain", "Bali Indonesia", "Phuket Thailand", "Dubai UAE", "Sydney Australia", "London UK", "Tokyo Japan", "Cancun Mexico", "Machu Picchu Peru", "Santorini Greece", "Maui Hawaii", "Rio de Janeiro Brazil", "Amsterdam Netherlands", "Cape Town South Africa", "Hong Kong China", "Istanbul Turkey", "New Orleans Louisiana", "Queenstown New Zealand", "Sedona Arizona", "Siem Reap Cambodia", "Vancouver Canada", "Zurich Switzerland", "Athens Greece", "Bangkok Thailand", "Berlin Germany", "Dublin Ireland", "Fiji", "Havana Cuba", "Ibiza Spain", "Krakow Poland", "Lisbon Portugal", "Marrakech Morocco", "Napa Valley California", "San Juan Puerto Rico", "Singapore", "Tahiti", "Vienna Austria"];
+      roomLoc = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenRoomLoc = roomLoc;
+    }
+    
+        if (checkRoomLoc === "custom") {
+    roomLoc = $('#roomLocCustomText').val();
+}
+    
+    
+    let roomSize;
+    let checkRoomSize = $('#roomSize').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenRoomSize !== null) && (checkRoomSize === "random") && !(checkRoomSize === "custom")) {
+      roomSize = frozenRoomSize;
+    } else if (!(checkRoomSize === "random") && !(checkRoomSize === "custom")) {
+        roomSize = $('#roomSize').val();
+        frozenRoomSize = roomSize;
+    } else if (!(checkRoomSize === "custom")) {
+      const otherChoices = ["cozy", "comfortable", "modest", "compact", "spacious", "medium", "average", "expansive", "grand", "enormous", "massive", "high-ceilinged", "vaulted", "cathedral", "double-height", "circular", "curved", "energizing", "calming", "inviting", "scenic", "urban", "skyline", "sunny", "well-lit"];
+      roomSize = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenRoomSize = roomSize;
+    }
+    
+            if (checkRoomSize === "custom") {
+    roomSize = $('#roomSizeCustomText').val();
+}
+    
+    
+    let roomStyle;
+        let checkRoomStyle = $('#roomStyle').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenRoomStyle !== null) && (checkRoomStyle === "random") && !(checkRoomStyle === "custom")) {
+      roomStyle = frozenRoomStyle;
+    } else if (!(checkRoomStyle === "random") && !(checkRoomStyle === "custom")) {
+        roomStyle = $('#roomStyle').val();
+        frozenRoomStyle = roomStyle;
+    } else if (!(checkRoomStyle === "custom")) {
+      const otherChoices = ["contemporary", "modern", "traditional", "Key West", "skyscraper", "rustic", "farmhouse", "industrial", "mid-century modern", "Scandinavian", "bohemian", "coastal", "Art Deco", "minimalist", "eclectic", "transitional", "French country", "Victorian", "Neoclassical Architecture", "colonial", "cabin", "craftsman", "tropical", "Mediterranean", "Spanish", "Japanese", "Chinese", "Indian", "Moroccan", "African", "Arabian", "Hollywood glamour", "retro", "vintage", "chateau", "palace", "castle", "cottage", "beach house"];
+      roomStyle = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenRoomStyle = roomStyle;
+    }
+    
+if (checkRoomStyle === "custom") {
+    roomStyle = $('#roomStyleCustomText').val();
+}
+
+    
+   
+ 
+    
+    let roomMaterial;
+        let checkRoomMaterial = $('#roomMaterial').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenRoomMaterial !== null) && (checkRoomMaterial === "random") && !(checkRoomMaterial === "custom")) {
+      roomMaterial = frozenRoomMaterial;
+    } else if (!(checkRoomMaterial === "random") && !(checkRoomMaterial === "custom")) {
+        roomMaterial = $('#roomMaterial').val();
+        frozenRoomMaterial = roomMaterial;
+    } else if (!(checkRoomMaterial === "custom")) {
+      const otherChoices = ["marble", "granite", "brick", "metal", "porcelain", "terrazzo", "brass", "terracotta", "concrete", "slate", "stainless steel", "sandstone", "limestone", "zinc", "bamboo", "wood", "leather", "fur", "stone", "tile", "glass", "mosaic", "hardwood"];
+      roomMaterial = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenRoomMaterial = roomMaterial;
+    }
+    
+    if (checkRoomMaterial === "custom") {
+    roomMaterial = $('#roomMaterialCustomText').val();
+}
+
+   
+    
+    
+    
+    let roomColorMaterial; // Added a closing bracket
+        let checkRoomColorMaterial = $('#roomColorMaterial').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenRoomColorMaterial !== null) && (checkRoomColorMaterial === "random") && !(checkRoomColorMaterial === "custom")) {
+      roomColorMaterial = frozenRoomColorMaterial;
+    } else if (!(checkRoomColorMaterial === "random") && !(checkRoomColorMaterial === "custom")) {
+        roomColorMaterial = $('#roomColorMaterial').val();
+        frozenRoomColorMaterial = roomColorMaterial;
+    } else if (!(checkRoomColorMaterial === "custom")) {
+      const otherChoices = ["black", "white", "gray", "beige", "blue", "green", "red", "pink", "orange", "yellow", "purple", "brown", "tan", "cream", "navy", "teal", "olive", "maroon", "magenta", "khaki", "charcoal", "coral", "gold", "silver", "bronze", "copper", "rust", "rose", "peach", "mint", "lavender", "mustard", "taupe", "chocolate", "ivory", "fuchsia", "indigo", "ruby", "emerald", "sapphire", "topaz", "opal", "quartz", "granite", "marble", "slate", "sandstone", "limestone", "stainless steel", "bamboo", "wood", "zinc", "fur", "leather", "stone", "tile", "glass", "mosaic", "hardwood"];
+      roomColorMaterial = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenRoomColorMaterial = roomColorMaterial;
+    }
+    
+    if (checkRoomColorMaterial === "custom") {
+    roomColorMaterial = $('#roomColorMaterialCustomText').val();
+}
+    
+    
+    let furnitureStyle;
+        let checkFurnitureStyle = $('#furnitureStyle').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenFurnitureStyle !== null) && (checkFurnitureStyle === "random") && !(checkFurnitureStyle === "custom")) {
+      furnitureStyle = frozenFurnitureStyle;
+    } else if (!(checkFurnitureStyle === "random") && !(checkFurnitureStyle === "custom")) {
+        furnitureStyle = $('#furnitureStyle').val();
+        frozenFurnitureStyle = furnitureStyle;
+    } else if (!(checkFurnitureStyle === "custom")) {
+      const otherChoices = ["Art Deco", "Mid-Century Modern", "Industrial", "Scandinavian", "Bohemian", "Minimalist", "Contemporary", "Traditional", "Rustic", "Vintage", "Colonial", "Coastal", "French Country", "Transitional", "Key West", "Tropical", "Mediterranean", "Asian", "Victorian", "Mission", "Gothic", "Rococo", "Baroque", "Neo-Classical", "Regency", "Edwardian", "Art Nouveau", "Arts and Crafts", "Chippendale", "Sheraton", "Hepplewhite", "Queen Anne", "Renaissance", "Gothic Revival", "Greek Revival", "Italianate", "Empire", "Biedermeier", "Louis XIV", "Louis XV", "Louis XVI", "Federation", "Arts and Crafts Movement", "Streamline Moderne", "Organic Modernism", "International Style", "Bauhaus", "Brutalism", "Postmodernism"];
+      furnitureStyle = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenFurnitureStyle = furnitureStyle;
+    }
+    
+            if (checkFurnitureStyle === "custom") {
+    furnitureStyle = $('#furnitureStyleCustomText').val();
+}
+    
+    let furnitureColor;
+        let checkfurnitureColor = $('#furnitureColor').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenfurnitureColor !== null) && (checkfurnitureColor === "random") && !(checkfurnitureColor === "custom")) {
+      furnitureColor = frozenfurnitureColor;
+    } else if (!(checkfurnitureColor === "random") && !(checkfurnitureColor === "custom")) {
+        furnitureColor = $('#furnitureColor').val();
+        frozenfurnitureColor = furnitureColor;
+    } else if (!(checkfurnitureColor === "custom")) {
+      const otherChoices = ["black", "white", "gray", "beige", "blue", "green", "red", "pink", "orange", "yellow", "purple", "brown", "tan", "cream", "navy", "teal", "olive", "maroon", "magenta", "khaki", "charcoal", "coral", "gold", "silver", "bronze", "copper", "rust", "rose", "peach", "mint", "lavender", "mustard", "taupe", "chocolate", "ivory", "fuchsia", "indigo"];
+      furnitureColor = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenfurnitureColor = furnitureColor;
+    }
+    
+    if (checkfurnitureColor === "custom") {
+    furnitureColor = $('#furnitureColorCustomText').val();
+}
+    
+    let furnitureMaterial;
+        let checkfurnitureMaterial = $('#furnitureMaterial').val();
+    if ($('#freezeRNGCheckbox').is(':checked') && (frozenfurnitureMaterial !== null) && (checkfurnitureMaterial === "random") && !(checkfurnitureMaterial === "custom")) {
+      furnitureMaterial = frozenfurnitureMaterial;
+    } else if (!(checkfurnitureMaterial === "random") && !(checkfurnitureMaterial === "custom")) {
+        furnitureMaterial = $('#furnitureMaterial').val();
+        frozenfurnitureMaterial = furnitureMaterial;
+    } else if (!(checkfurnitureMaterial === "custom")) {
+      const otherChoices = ["leather", "fabric", "vinyl", "glass", "wood", "metal", "granite", "marble", "slate", "limestone", "cork", "resin", "concrete", "fur", "stainless steel", "zinc", "bamboo", "stone"];
+      furnitureMaterial = otherChoices[Math.floor(Math.random() * otherChoices.length)];
+        frozenfurnitureMaterial = furnitureMaterial;
+    }
+    
+        if (checkfurnitureMaterial === "custom") {
+    furnitureMaterial = $('#furnitureMaterialCustomText').val();
+}
+    
+
+    let camDistance;
+    let checkCamDistance = $('#camDistance').val();
+    
+    if (checkCamDistance === "none") {
+        
+    } else {
+          camDistance = " " + checkCamDistance;
+    }
+    
+    
+        let lightingType;
+    let checkLightingType = $('#lightingType').val();
+    
+    if (checkLightingType === "None") {
+        lightingType = '';
+    } else {
+          lightingType = ", " + checkLightingType;
+    }
+    
+    
+            let aspectRatio;
+    let checkAspectRatio = $('#aspectRatio').val();
+    
+    if (checkAspectRatio === "None") {
+        aspectRatio = '';
+    } else {
+          aspectRatio = " --ar " + checkAspectRatio;
+    }
+    
+                let qualityS;
+    let checkQualityS = $('#qualityS').val();
+    
+    if (checkQualityS === "None") {
+        qualityS = '';
+    } else {
+          qualityS = " --q " + checkQualityS;
+    }
+    
+   let userInputText = "";
+   
+if(!($('#userInputCustomText').val() === "")) {
+    userInputText = " " + $('#userInputCustomText').val() + ",";
+}
+ 
+  
+  let furnitureGen = `, the ${roomColorMaterial} complements the ${furnitureColor} ${furnitureMaterial} ${furnitureStyle} furniture::2`;
+  
+  if ($('#disableInputsCheckbox').is(':checked')) {
+    furnitureGen = '';
+  }
+  
+
+
+    
+    let roomOutput = `A ${roomSize} ${roomStyle} ${roomMaterial} ${roomType} in ${roomLoc}::3${furnitureGen},${userInputText}${camDistance}, photo${lightingType}, ultra realistic textures::2, ultra detailed, beautiful and realistic, cinematic, 8k, hyperdetailed, hyperrealistic, global illumination${aspectRatio}${qualityS} --v 5 --s 40 --no text`;
+    
+    let topPreview = `A ${roomSize}(Room Size) ${roomStyle}(Room Style) ${roomMaterial}(Room Material) ${roomType}(Room Type) in ${roomLoc}(Room Location)::3`;
+    let secPreview = `the ${roomColorMaterial}(Room Color/Material) complements the ${furnitureColor}(Furniture Color) ${furnitureMaterial}(Furniture Material) ${furnitureStyle}(Furniture Style) furniture::2`;
+    
+  
+      if ($('#disableInputsCheckbox').is(':checked')) {
+        $('#label_name2').val("");
+      } else {
+        $('#label_name2').val(secPreview);
+      }
+     
+    $('#label_name').val(topPreview);
+    $('#roomOutputTextarea').val(roomOutput);
+  });
+
+  $('#copyToClipboardBtn').click(function() {
+    $('#roomOutputTextarea').select();
+    document.execCommand("copy");
+  });
+});
+      
+
+      
+
+      
+
+        const resetDropdownsBtn = document.querySelector('#resetDropdownsBtn');
+  resetDropdownsBtn.addEventListener('click', () => {
+    const dropdowns = document.querySelectorAll('select'); // select all dropdowns
+
+    $('#roomTypeCustomDiv').hide();
+    $('#roomLocCustomDiv').hide();
+    $('#roomSizeCustomDiv').hide();
+    $('#roomStyleCustomDiv').hide();
+    $('#roomMaterialCustomDiv').hide();
+    $('#roomColorMaterialCustomDiv').hide();
+    $('#furnitureMaterialCustomDiv').hide();
+    $('#furnitureStyleCustomDiv').hide();
+    $('#furnitureColorCustomDiv').hide();
+    $('#roomOutputTextarea').val("");
+    $('#label_name2').val("");
+    $('#label_name').val("");
+    $('#userInputCustomText').val("");
+    $('#freezeRNGCheckbox').prop('checked', false);
+    $('#disableInputsCheckbox').prop('checked', false);
+            $('#roomColorMaterial').prop('disabled', false);
+        $('#furnitureStyle').prop('disabled', false);
+        $('#furnitureMaterial').prop('disabled', false);
+        $('#furnitureColor').prop('disabled', false);
+    // loop through all dropdowns and reset their values to their defaults
+    dropdowns.forEach((dropdown) => {
+      dropdown.value = dropdown.options[0].value;
+    });
+  });
+
+</script>
+  
+
+
+
+</body>
+</html>
