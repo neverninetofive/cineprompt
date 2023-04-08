@@ -72,7 +72,8 @@ function generatePrompt() {
   }
   
   // Füge die Event-Listener für das Dropdown-Menü und den Generate-Button hinzu
-  document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
+  // Fülle alle Dropdown-Menüs mit den verfügbaren Werten
   populateDropdown(subjectDropdownId, subjectValues);
   populateDropdown(genreDropdownId, genreValues);
   populateDropdown(locationDropdownId, locationValues);
@@ -84,7 +85,30 @@ function generatePrompt() {
   populateDropdown(filmLookDropdownId, filmLookValues);
   populateDropdown(inStyleOfPhotographerDropdownId, inStyleOfPhotographerValues);
   populateDropdown(inStyleOfFilmmakerDropdownId, inStyleOfFilmmakerValues);
-  
+  populateDropdown(aspectRatioDropdownId, aspectRatioValues);
+  populateDropdown(qualityDropdownId, qualityValues);
+
   const generateButton = document.getElementById(generateButtonId);
-  generateButton.addEventListener("click", generatePrompt);
+  generateButton.addEventListener("click", () => {
+    // Hole alle ausgewählten Werte aus den Dropdown-Menüs
+    const subject = document.getElementById(subjectDropdownId).value;
+    const genre = document.getElementById(genreDropdownId).value;
+    const location = document.getElementById(locationDropdownId).value;
+    const weather = document.getElementById(weatherDropdownId).value;
+    const cameraAngle = document.getElementById(cameraAngleDropdownId).value;
+    const shotOn = document.getElementById(shotOnDropdownId).value;
+    const lighting = document.getElementById(lightingDropdownId).value;
+    const timeOfDay = document.getElementById(timeOfDayDropdownId).value;
+    const filmLook = document.getElementById(filmLookDropdownId).value;
+    const inStyleOfPhotographer = document.getElementById(inStyleOfPhotographerDropdownId).value;
+    const inStyleOfFilmmaker = document.getElementById(inStyleOfFilmmakerDropdownId).value;
+    const aspectRatio = document.getElementById(aspectRatioDropdownId).value;
+    const quality = document.getElementById(qualityDropdownId).value;
+
+    // Erstelle den generierten Prompt-Text
+    const promptOutput = `A ${subject} in a ${genre} movie, shot on a ${shotOn} camera in ${location} on a ${weather} day. Shot from a ${cameraAngle} with ${lighting} lighting during ${timeOfDay}. Give it a ${filmLook} look, inspired by ${inStyleOfPhotographer} photography and directed in the style of ${inStyleOfFilmmaker}. --ar ${aspectRatio} --q ${quality}`;
+
+    // Setze den generierten Prompt-Text im HTML-Element
+    document.getElementById(promptOutputId).textContent = promptOutput;
   });
+});
